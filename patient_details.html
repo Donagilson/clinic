@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .card + .card { margin-top: 1.5rem; }
+    .pdf-link { text-decoration: none; }
+    body {
+      background: url('') no-repeat center center fixed;
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4 position-relative">
+    <div class="text-center mb-2">
+      <span class="fw-bold" style="font-size:1.5rem;color:#b71c1c;letter-spacing:1px;">RAJAGIRI CARE</span>
+    </div>
+  <a href="#" class="btn btn-link mb-3" onclick="window.history.back(); return false;"><i class="fas fa-arrow-left me-2"></i>Back</a>
+  <h2 class="mb-4 text-center" style="color:#b71c1c;">Patient Details</h2>
+    <!-- Card 1: Basic Info -->
+    <div class="card shadow">
+      <div class="card-body">
+  <h5 class="card-title mb-3" style="color:#b71c1c;">Basic Information</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Token Number:</strong> <span id="patientToken"></span></li>
+          <li class="list-group-item"><strong>Name:</strong> <span id="patientName"></span></li>
+          <li class="list-group-item"><strong>Age:</strong> <span id="patientAge"></span></li>
+          <li class="list-group-item"><strong>Gender:</strong> <span id="patientGender"></span></li>
+          <li class="list-group-item"><strong>Reason for Visit:</strong> <span id="patientReason" class="text-danger fw-bold"></span></li>
+          <li class="list-group-item"><strong>Medical Conditions:</strong> <span id="patientConditions" class="text-danger fw-bold"></span></li>
+          <li class="list-group-item"><strong>Allergies:</strong> <span id="patientAllergies" class="text-danger fw-bold"></span></li>
+          <li class="list-group-item"><strong>Insurance:</strong> <span id="patientInsurance"></span></li>
+          <li class="list-group-item">
+            <strong>Action:</strong>
+            <select id="patientAction" class="form-select d-inline-block w-auto ms-2">
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Not Visited">Not Visited</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Card 2: Medical Notes/Prescriptions -->
+    <div class="card shadow">
+      <div class="card-body">
+  <h5 class="card-title mb-3" style="color:#b71c1c;">Doctor's Notes / Prescriptions</h5>
+          <textarea class="form-control mb-2" id="doctor-notes" rows="8" cols="60" placeholder="Add medical notes or prescriptions..."></textarea><br>
+          <button onclick="saveNotes()" id="save-notes-btn">Save Notes</button>
+        <button onclick="editNotes()" id="edit-notes-btn">Edit Notes</button>
+          <button onclick="generatePDF()">Download PDF</button>
+          <span id="notes-status" style="margin-left: 10px; color: green;"></span>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="script.js"></script>
+      </div>
+    </div>
+    <!-- Card 3: Other Medicines -->
+    <div class="card shadow">
+      <div class="card-body">
+  <h5 class="card-title mb-3" style="color:#b71c1c;">Other Medicines Prescribed by Other Doctors</h5>
+        <ul class="list-group" id="otherMedsList"></ul>
+      </div>
+    </div>
+    <!-- Card 4: Review/Add Report -->
+    <div class="card shadow">
+      <div class="card-body">
+  <h5 class="card-title mb-3" style="color:#b71c1c;">Medical Reports</h5>
+        <div class="mb-3">
+          <label for="reportUpload" class="form-label">Add Report (PDF):</label>
+          <input class="form-control" type="file" id="reportUpload" accept="application/pdf">
+        </div>
+  <button class="btn mb-2" style="background:#b71c1c;color:#fff;" onclick="viewSamplePDF()"><i class="fas fa-file-pdf me-1"></i>View Sample Report (PDF)</button>
+        <div id="uploadedReports" class="mt-2"></div>
+      </div>
+    </div>
+    <!-- Card 5: Lab Test Request -->
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title mb-3" style="color:#b71c1c;">Lab Test Request</h5>
+        <form id="labTestForm" class="row g-2 align-items-end">
+          <div class="col-md-8">
+            <label for="labTestSelect" class="form-label">Select Lab Test</label>
+            <select class="form-select" id="labTestSelect">
+              <option value="" selected disabled>Select a test</option>
+              <option value="Blood Test">Blood Test</option>
+              <option value="Urine Test">Urine Test</option>
+              <option value="X-Ray">X-Ray</option>
+              <option value="ECG">ECG</option>
+              <option value="MRI">MRI</option>
+              <option value="CT Scan">CT Scan</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn" style="background:#b71c1c;color:#fff;">Request Test</button>
+          </div>
+        </form>
+        <div id="labTestSuccess" class="alert alert-success mt-3 d-none" role="alert">
+          Lab test requested successfully!
+        </div>
+        <h6 class="mt-4 mb-2" style="color:#b71c1c;">Requested Lab Tests</h6>
+        <ul class="list-group" id="requestedLabTests"></ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Simulate patient data from query string or localStorage/sessionStorage
+    const samplePatient = {
+      token: 101,
+      name: 'Ramesh Pillai',
+      age: 58,
+      gender: 'Male',
+      reason: 'Chest pain',
+      conditions: 'Hypertension, Diabetes',
+      allergies: 'Penicillin',
+      insurance: 'Star Health Insurance',
+      otherMeds: ['Metoprolol (Dr. Ravi Kumar)'],
+      notes: '',
+      action: 'Pending'
+    };
+    // Populate fields
+    document.getElementById('patientToken').textContent = samplePatient.token;
+    document.getElementById('patientName').textContent = samplePatient.name;
+    document.getElementById('patientAge').textContent = samplePatient.age;
+    document.getElementById('patientGender').textContent = samplePatient.gender;
+    document.getElementById('patientReason').textContent = samplePatient.reason;
+    document.getElementById('patientConditions').textContent = samplePatient.conditions;
+    document.getElementById('patientAllergies').textContent = samplePatient.allergies;
+    document.getElementById('patientInsurance').textContent = samplePatient.insurance;
+    document.getElementById('patientAction').value = samplePatient.action;
+    document.getElementById('patientAction').addEventListener('change', function() {
+      samplePatient.action = this.value;
+    });
+    // Other medicines
+    const otherMedsList = document.getElementById('otherMedsList');
+    samplePatient.otherMeds.forEach(med => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item';
+      li.textContent = med;
+      otherMedsList.appendChild(li);
+    });
+    // Save notes
+      function saveNotes() {
+        samplePatient.notes = document.getElementById('doctor-notes').value;
+        document.getElementById('notes-status').textContent = 'Notes saved!';
+        setTimeout(() => { document.getElementById('notes-status').textContent = ''; }, 2000);
+    }
+    // Handle PDF upload
+    document.getElementById('reportUpload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        const uploadedReports = document.getElementById('uploadedReports');
+        uploadedReports.innerHTML = `<div class='alert alert-info p-2'><i class='fas fa-file-pdf me-2'></i>Uploaded: ${file.name}</div>`;
+      }
+    });
+    // View sample PDF
+    function viewSamplePDF() {
+      window.open('https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', '_blank');
+    }
+    // Lab Test Request functionality
+    let requestedLabTests = [];
+    const labTestForm = document.getElementById('labTestForm');
+    const labTestSelect = document.getElementById('labTestSelect');
+    const requestedLabTestsList = document.getElementById('requestedLabTests');
+    const labTestSuccess = document.getElementById('labTestSuccess');
+    if (labTestForm) {
+      labTestForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const selectedTest = labTestSelect.value;
+        if (selectedTest && !requestedLabTests.includes(selectedTest)) {
+          requestedLabTests.push(selectedTest);
+          updateLabTestList();
+          labTestSuccess.classList.remove('d-none');
+          setTimeout(() => labTestSuccess.classList.add('d-none'), 2000);
+        }
+        labTestSelect.value = '';
+      });
+    }
+    function updateLabTestList() {
+      requestedLabTestsList.innerHTML = '';
+      requestedLabTests.forEach(test => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.textContent = test;
+        requestedLabTestsList.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

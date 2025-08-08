@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJAGIRI</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .dropdown-item:hover {
+            background-color: #b71c1c;
+            color: #fff !important;
+        }
+
+        /* Department card hover effect */
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(183,28,28,0.18), 0 2px 8px rgba(183,28,28,0.08);
+            transform: translateY(-6px) scale(1.03);
+            border-color: #b71c1c;
+            transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+        }
+
+        .login-btn {
+    border-radius: 24px !important;
+    padding: 10px 32px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(183,28,28,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+/* Custom hamburger menu button */
+.custom-menu-btn {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    margin-left: 16px;
+}
+.custom-menu-btn .lines {
+    width: 32px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+.custom-menu-btn .line {
+    height: 4px;
+    background: #b71c1c;
+    border-radius: 2px;
+    width: 100%;
+    transition: background 0.2s;
+}
+.custom-menu-btn .menu-label {
+    font-size: 0.95rem;
+    color: #b71c1c;
+    margin-top: 2px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+@media (max-width: 991.98px) {
+    .custom-menu-btn {
+        display: flex;
+    }
+    .navbar-toggler {
+        display: none !important;
+    }
+}
+.login-btn:hover {
+    background-color: #b71c1c;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(183,28,28,0.18);
+}
+@keyframes heroImgFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+@keyframes loginBtnFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(40px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+        
+        .hero-image {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hos.jp.jpg');
+            height: 80vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: heroImgFadeIn 1.2s cubic-bezier(.77,.2,.32,1.01) 0.2s forwards;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-text p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn-book {
+            background-color: #b71c1c;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .btn-book:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #b71c1c !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 10px;
+            color: #333 !important;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #b71c1c;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        
+        
+        
+        
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 6px 0 4px 0;
+        }
+        
+        .enquiry-btn {
+        position: fixed;
+        left: 32px;
+        bottom: 32px;
+        z-index: 9999;
+        background: #fff;
+        color: #b71c1c;
+        border-radius: 32px;
+        box-shadow: 0 2px 12px rgba(183,28,28,0.12);
+        padding: 10px 22px;
+        font-size: 1.08rem;
+        font-weight: 600;
+        border: 2px solid #b71c1c;
+        text-decoration: none;
+        transition: box-shadow 0.2s, background 0.2s;
+    }
+    .enquiry-btn:hover {
+        background: #ffeaea;
+        box-shadow: 0 4px 24px rgba(183,28,28,0.18);
+        color: #b71c1c;
+    }
+    .chat-btn {
+        position: fixed;
+        right: 32px;
+        bottom: 32px;
+        z-index: 9999;
+        background: #fff;
+        color: #b71c1c;
+        border-radius: 32px;
+        box-shadow: 0 2px 12px rgba(183,28,28,0.12);
+        padding: 10px 22px;
+        font-size: 1.08rem;
+        font-weight: 600;
+        border: 2px solid #b71c1c;
+        text-decoration: none;
+        transition: box-shadow 0.2s, background 0.2s;
+        display: flex;
+        align-items: center;
+    }
+    .chat-btn:hover {
+        background: #ffeaea;
+        box-shadow: 0 4px 24px rgba(183,28,28,0.18);
+        color: #b71c1c;
+    }
+        
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-image {
+                height: 8cm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Emergency & Ambulance Top Bar -->
+    <div style="background:#fff; border-bottom:1px solid #eee; padding:4px 0; font-size:1rem;">
+      <div class="container d-flex justify-content-end align-items-center gap-4">
+        <div class="d-flex align-items-center">
+          <span class="fw-bold text-danger"><i class="fas fa-ambulance me-1"></i>AMBULANCE:</span>
+          <span class="text-dark ms-1">+91 9833009816</span>
+          <a href="https://wa.me/919833009816" target="_blank" class="ms-2" title="WhatsApp"><i class="fab fa-whatsapp text-success"></i></a>
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="fw-bold text-primary"><i class="fas fa-phone me-1"></i>EMERGENCY:</span>
+          <span class="text-dark ms-1">+91 471 294 1101</span>
+        </div>
+      </div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-hospital me-2"></i>RAJAGIRI
+            </a>
+            <div class="d-flex align-items-center flex-grow-1">
+                <!-- Custom Hamburger Menu Button -->
+                <button class="custom-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="lines">
+                        <i class="fas fa-bars fa-2x" style="color:#b71c1c;"></i>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Menu
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="menuDropdown">
+                                <li><a class="dropdown-item" href="#about">About</a></li>
+                                <li><a class="dropdown-item" href="#departments">Department</a></li>
+                                <!-- Removed Booking and Patient Booking dropdown links -->
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                <li><a class="dropdown-item" href="#">Teletriage</a></li>
+                                <li><a class="dropdown-item" href="#">Home care</a></li>
+                                <li><a class="dropdown-item" href="#">CSR</a></li>
+                                <li><a class="dropdown-item" href="#">Patients and Visitors</a></li>
+                                <li><a class="dropdown-item" href="#">Ethics Committee</a></li>
+                                <li><a class="dropdown-item" href="#">Academics</a></li>
+                                <li><a class="dropdown-item" href="#">Facilities</a></li>
+                                <li><a class="dropdown-item" href="#">Travel Clinic</a></li>
+                                <li><a class="dropdown-item" href="#">Insurance Providers</a></li>
+                                <li><a class="dropdown-item" href="#">Careers</a></li>
+                                <li><a class="dropdown-item" href="#">Blog</a></li>
+                                <li><a class="dropdown-item" href="#">Videos</a></li>
+                                <li><a class="dropdown-item" href="#">Bio Medical Waste Report</a></li>
+                                <!-- Removed Medical Representatives - Appointments dropdown link -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-outline-primary login-btn ms-3" id="homepageLoginBtn">Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Image Section -->
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>Your Health Is Our Priority</h1>
+            <p>Compassionate care. Advanced technology. Exceptional results.</p>
+                        <a href="#booking" class="btn btn-book" id="bookAppointmentBtn">Book an Appointment</a>
+                        <button id="scrollDownToBooking" style="background: none; border: none; cursor: pointer; font-size: 2rem; color: #b71c1c; margin-left: 10px; vertical-align: middle;" title="Go to Book Appointment">
+                            &#8595;
+                        </button>
+        </div>
+    </div>
+
+    <!-- Book Appointment Section -->
+            <section class="container my-5" id="booking" style="display: none;">
+                <div style="text-align: right; margin-bottom: -30px; margin-top: -10px;">
+                    <button id="scrollUpFromBooking" style="background: none; border: none; cursor: pointer; font-size: 2rem; color: #b71c1c;" title="Back to Top">&#8593;</button>
+                </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-3 text-center" style="color:#b71c1c;">Book an Appointment</h2>
+                        <form id="appointmentForm" novalidate>
+                            <div class="mb-3">
+                                <label for="patientName" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="patientName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="patientEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="patientEmail" required>
+                                <div id="emailError" class="text-danger mt-1" style="display:none;"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appointmentTime" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="appointmentTime" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="doctorSelect" class="form-label">Select Doctor</label>
+                                <select class="form-select" id="doctorSelect" required>
+                                    <option value="" selected disabled>Select a doctor</option>
+                                    <option>Dr. Asha Menon (Cardiologist)</option>
+                                    <option>Dr. Ravi Kumar (General Medicine)</option>
+                                    <option>Dr. Priya Nair (Pediatrics)</option>
+                                    <option>Dr. Sanjay Patel (Neurology)</option>
+                                    <option>Dr. Meera Joseph (Radiology)</option>
+                                </select>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn" style="background:#b71c1c;color:#fff;">Book Appointment</button>
+                            </div>
+                        </form>
+                        <div id="appointmentSuccess" class="alert alert-success mt-3 d-none" role="alert">
+                            Appointment booked successfully!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Doctor Availability Calendar -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="mb-3 text-center" style="color:#b71c1c;">Doctor Availability Calendar</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center">
+                                <thead style="background:#b71c1c;color:#fff;">
+                                    <tr>
+                                        <th>Doctor</th>
+                                        <th>Mon</th>
+                                        <th>Tue</th>
+                                        <th>Wed</th>
+                                        <th>Thu</th>
+                                        <th>Fri</th>
+                                        <th>Sat</th>
+                                        <th>Sun</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Dr. Asha Menon</td>
+                                        <td>✔️</td><td>✔️</td><td>✔️</td><td>❌</td><td>✔️</td><td>✔️</td><td>❌</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Ravi Kumar</td>
+                                        <td>✔️</td><td>❌</td><td>✔️</td><td>✔️</td><td>✔️</td><td>❌</td><td>✔️</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Priya Nair</td>
+                                        <td>❌</td><td>✔️</td><td>✔️</td><td>✔️</td><td>❌</td><td>✔️</td><td>✔️</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Sanjay Patel</td>
+                                        <td>✔️</td><td>✔️</td><td>❌</td><td>✔️</td><td>✔️</td><td>✔️</td><td>❌</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Meera Joseph</td>
+                                        <td>✔️</td><td>✔️</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-muted" style="font-size:0.95rem;">✔️ = Available, ❌ = Not Available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hospital Description Section -->
+<script>
+// Book Appointment form handler
+const appointmentForm = document.getElementById('appointmentForm');
+if (appointmentForm) {
+    appointmentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailInput = document.getElementById('patientEmail');
+        const emailError = document.getElementById('emailError');
+        const emailValue = emailInput.value.trim();
+        // Email validation: no spaces and valid format
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailValue.includes(' ') || !emailPattern.test(emailValue)) {
+            emailError.textContent = 'Please enter a valid email address (no spaces allowed).';
+            emailError.style.display = 'block';
+            emailInput.classList.add('is-invalid');
+            emailInput.focus();
+            return;
+        } else {
+            emailError.textContent = '';
+            emailError.style.display = 'none';
+            emailInput.classList.remove('is-invalid');
+        }
+        document.getElementById('appointmentSuccess').classList.remove('d-none');
+        appointmentForm.reset();
+        setTimeout(() => {
+            document.getElementById('appointmentSuccess').classList.add('d-none');
+        }, 3000);
+    });
+}
+
+// Toggle Book Appointment section visibility and scroll
+const bookingSection = document.getElementById('booking');
+const bookBtn = document.getElementById('bookAppointmentBtn');
+let bookingVisible = false;
+if (bookBtn && bookingSection) {
+    bookBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        bookingVisible = !bookingVisible;
+        bookingSection.style.display = bookingVisible ? 'block' : 'none';
+        if (bookingVisible) {
+            setTimeout(() => bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+    });
+}
+
+const scrollUpBtn = document.getElementById('scrollUpFromBooking');
+if (scrollUpBtn) {
+    scrollUpBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+</script>
+    <section class="container my-5" id="about">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h2 class="card-title mb-3" style="color:#b71c1c;">About City General Hospital</h2>
+                        <p class="card-text lead mb-0">City General Hospital is dedicated to providing world-class healthcare with compassion and innovation. Our team of expert doctors, advanced technology, and patient-centered approach ensure the highest standards of medical care. We offer a wide range of services and specialties, making us a trusted choice for families and individuals seeking quality treatment and support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Search Bar Section -->
+    <section class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h4 class="mb-3 text-center" style="color:#b71c1c;">Search for Doctors</h4>
+                        <form class="row g-2 justify-content-center" id="doctorSearchForm">
+                            <div class="col-md-5 col-12">
+                                <input type="text" class="form-control" id="doctorSearchInput" placeholder="Search for doctors, specialties, or services">
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <input type="date" class="form-control" id="doctorSearchDate" placeholder="Select date">
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <select class="form-select" id="doctorSearchTime">
+                                    <option value="" selected>Time</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="afternoon">Afternoon</option>
+                                    <option value="evening">Evening</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <button type="submit" class="btn" style="background:#b71c1c;color:#fff;width:100%;">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Departments Section -->
+    <section class="container my-5" id="departmentsSection">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="mb-4 text-center" style="color:#b71c1c;">Departments</h2>
+                <div class="row g-4 justify-content-center" id="departmentsCards">
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-md fa-2x" style="color:#b71c1c; margin-bottom:8px;"></i>
+                                <h5 class="card-title">General Medicine</h5>
+                                <p class="card-text">Comprehensive care for adults and seniors.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-heartbeat fa-2x text-danger mb-2"></i>
+                                <h5 class="card-title">Cardiology</h5>
+                                <p class="card-text">Heart care and advanced cardiac treatments.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-child fa-2x text-warning mb-2"></i>
+                                <h5 class="card-title">Pediatrics</h5>
+                                <p class="card-text">Specialized care for infants, children, and teens.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-x-ray fa-2x" style="color:#b71c1c; margin-bottom:8px;"></i>
+                                <h5 class="card-title">Radiology</h5>
+                                <p class="card-text">Advanced imaging and diagnostic services.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-syringe fa-2x text-success mb-2"></i>
+                                <h5 class="card-title">Surgery</h5>
+                                <p class="card-text">Expert surgical care and procedures.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 department-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-brain fa-2x" style="color:#b71c1c; margin-bottom:8px;"></i>
+                                <h5 class="card-title">Neurology</h5>
+                                <p class="card-text">Brain and nervous system care.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-container" style="margin-top:80px;">
+        <div class="container">
+           
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="video-wrapper">
+                        <!-- Moving Images Carousel -->
+                        <div id="facilityCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="hospital.jpg" class="d-block mx-auto rounded" alt="Hospital Building" style="height:260px;width:100%;max-width:900px;object-fit:cover;">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="im1.avif" class="d-block mx-auto rounded" alt="Facility 1" style="height:260px;width:100%;max-width:900px;object-fit:cover;">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="im2.webp" class="d-block mx-auto rounded" alt="Facility 2" style="height:260px;width:100%;max-width:900px;object-fit:cover;">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#facilityCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#facilityCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+              </div>
+              <div class="mb-3 text-end">
+                <a href="#" class="link-primary" style="font-size:0.95rem;">Forgot Password?</a>
+              </div>
+              <button type="submit" class="btn" style="background:#b71c1c;color:#fff;width:100%;">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Enquiry Modal -->
+    <div class="modal fade" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="enquiryModalLabel">Enquiry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>For any enquiries, please call <strong>+91 9876543210</strong> or email <strong>info@citygeneral.org</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+    <footer>
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-hospital me-2"></i>City General Hospital</h5>
+                    <p>123 Medical Center Drive<br>Springfield, ST 12345</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about" class="text-white">About Us</a></li>
+                        <li><a href="#departments" class="text-white">Departments</a></li>
+                        <li><a href="#contact" class="text-white">Contact</a></li>
+                        <li><a href="#booking" class="text-white">Patient Booking</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Emergency Contact</h5>
+                    <p><i class="fas fa-phone me-2"></i>(555) 123-4567</p>
+                    <p><i class="fas fa-envelope me-2"></i>emergency@citygeneral.org</p>
+                </div>
+            </div>
+                        <div style="background: #111; padding: 30px 0; border-radius: 16px; max-width: 850px; margin: 40px auto 24px auto; text-align: center;">
+                            <h2 style="color: #fff; margin-bottom: 24px;">Our Location</h2>
+                            <div style="width: 95%; max-width: 800px; margin: 0 auto;">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.445857934468!2d76.2998843148007!3d10.008237292844073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d3e2e2e2e2e%3A0x2e2e2e2e2e2e2e2e!2sRajagiri%20Hospital!5e0!3m2!1sen!2sin!4v1691500000000!5m2!1sen!2sin"
+                                    width="100%" height="400" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                        <hr class="bg-light">
+                        <div class="text-center">
+                                <p>&copy; 2023 City General Hospital. All rights reserved.</p>
+                        </div>
+            <!-- Floating Enquiry Button -->
+            <a href="#" class="enquiry-btn" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                <span class="d-flex align-items-center">
+                    <span class="fw-bold me-2">Enquiry</span>
+                    <span class="fw-bold">+91 9876543210</span>
+                </span>
+            </a>
+            <!-- Floating Chat Button -->
+<a href="#" class="chat-btn" id="chatWithUsBtn">
+    <span class="d-flex align-items-center">
+        <span class="fw-bold me-2">Chat with us</span>
+        <i class="fab fa-whatsapp" style="font-size:1.3rem;color:#25d366;"></i>
+    </span>
+</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+// Open WhatsApp chat on click
+  document.addEventListener('DOMContentLoaded', function() {
+    var chatBtn = document.getElementById('chatWithUsBtn');
+    if(chatBtn) {
+      chatBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open('https://wa.me/919876543210', '_blank');
+      });
+    }
+  });
+
+// Hardcoded credentials for roles
+const credentials = {
+  admin: { username: 'admin', password: 'admin123' },
+  doctor: { username: 'doctor', password: 'doc123' },
+  'lab technician': { username: 'labtech', password: 'lab123' },
+  pharmacist: { username: 'pharma', password: 'pharma123' },
+  receptionist: { username: 'recept', password: 'recep123' }
+};
+
+// Login form logic
+  document.addEventListener('DOMContentLoaded', function() {
+    var loginModal = document.getElementById('loginModal');
+    var loginForm = loginModal.querySelector('form');
+    var usernameInput = loginForm.querySelector('#username');
+    var passwordInput = loginForm.querySelector('#password');
+    var forgotLink = loginForm.querySelector('.link-primary');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      let found = false;
+      for (const role in credentials) {
+        if (
+          username.toLowerCase() === credentials[role].username.toLowerCase() &&
+          password === credentials[role].password
+        ) {
+          found = true;
+          window.location.href = 'medical_dashboard.html';
+          break;
+        }
+      }
+      if (!found) {
+        alert('Invalid username or password.');
+      }
+    });
+
+    forgotLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Please contact the hospital admin to reset your password.');
+    });
+
+    // Homepage Login button navigation
+    var loginBtn = document.getElementById('homepageLoginBtn');
+    if(loginBtn) {
+      loginBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var modal = new bootstrap.Modal(loginModal);
+        modal.show();
+      });
+    }
+  });
+// Doctor/Department search filter with time and date
+document.addEventListener('DOMContentLoaded', function() {
+    var searchForm = document.getElementById('doctorSearchForm');
+    var searchInput = document.getElementById('doctorSearchInput');
+    var searchDate = document.getElementById('doctorSearchDate');
+    var searchTime = document.getElementById('doctorSearchTime');
+    var cards = document.querySelectorAll('.department-card');
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var val = searchInput.value.trim().toLowerCase();
+        var timeVal = searchTime.value;
+        // For demo, time filter is not mapped to real data, but you can extend this logic
+        cards.forEach(function(card) {
+            var title = card.querySelector('.card-title').textContent.toLowerCase();
+            var desc = card.querySelector('.card-text').textContent.toLowerCase();
+            var show = true;
+            if (val && !(title.includes(val) || desc.includes(val))) show = false;
+            // Optionally, filter by time (if you add time info to cards)
+            if (timeVal && !desc.includes(timeVal)) show = false;
+            card.style.display = show ? '' : 'none';
+        });
+    });
+});
+</script>
+</body>
+</html>

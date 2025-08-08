@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+        .image-container {
+            width: 100vw;
+            height: 50vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0;
+        }
+        .dashboard-img {
+            width: 100vw;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: imgFadeInUp 1.2s cubic-bezier(.77,.2,.32,1.01) 0.2s forwards;
+        }
+        .dashboard-box {
+            max-width: 600px;
+            margin: 30px auto 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.08), 0 1px 4px rgba(0,0,0,0.07);
+            padding: 32px 24px 28px 24px;
+        }
+        @keyframes imgFadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top mb-2">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-primary" href="#">Patient Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+               <span class="navbar-text fw-bold">RAJAGIRI CARE</span>
+               <span class="navbar-text ms-3">Patient Dashboard</span>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#department">Department</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#booking">Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#patient-booking">Patient Booking</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="image-container">
+        <img src="hospital.jpg" alt="Hospital" class="dashboard-img">
+    </div>
+    <div class="dashboard-box">
+        <h3 class="mb-4 text-center">Welcome to Your Patient Dashboard</h3>
+        <p class="lead text-center">You are now logged in. Here you can view your appointments, update your profile, and more.</p>
+        <hr>
+        <div class="text-center">
+            <a href="patient_login.html" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+    <!-- Moving Images Section -->
+    <section class="container my-5">
+        <h4 class="text-center mb-4">Our Facilities</h4>
+        <div id="facilityCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="hospital.jpg" class="d-block w-100 rounded" alt="Hospital Building">
+                </div>
+                <div class="carousel-item">
+                    <img src="im1.avif" class="d-block w-100 rounded" alt="Facility 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="im2.webp" class="d-block w-100 rounded" alt="Facility 2">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#facilityCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#facilityCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+</body>
+</html>

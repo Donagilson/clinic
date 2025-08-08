@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor's Patients</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="doctor_list.html"><i class="fas fa-arrow-left me-2"></i>Back to Doctors</a>
+    <div class="text-center mb-2">
+      <span class="fw-bold" style="font-size:1.5rem;color:#b71c1c;letter-spacing:1px;">RAJAGIRI CARE</span>
+    </div>
+  <span class="navbar-text ms-3" id="doctorName">Doctor's Patients</span>
+    </div>
+  </nav>
+  <div class="container">
+  <h2 class="mb-4 text-center" id="doctorTitle" style="color:#b71c1c;">Patients</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+  <thead style="background:#b71c1c;color:#fff;">
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Reason for Visit</th>
+            <th>Current Medications</th>
+            <th>Medications Prescribed by Other Doctors</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="patientsTable">
+          <!-- Patient rows will be injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sample patient data for each doctor
+    const doctorPatients = {
+      'asha-menon': {
+        name: 'Dr. Asha Menon (Cardiologist)',
+        patients: [
+          { name: 'Ramesh Pillai', age: 58, reason: 'Chest pain', current: 'Aspirin, Atorvastatin', other: 'Metoprolol (Dr. Ravi Kumar)' },
+          { name: 'Lakshmi S.', age: 65, reason: 'Hypertension', current: 'Amlodipine', other: 'Losartan (Dr. Ravi Kumar)' },
+          { name: 'Manoj Nair', age: 47, reason: 'Arrhythmia', current: 'Amiodarone', other: 'Bisoprolol (Dr. Sanjay Patel)' },
+        ]
+      },
+      'ravi-kumar': {
+        name: 'Dr. Ravi Kumar (General Medicine)',
+        patients: [
+          { name: 'Geeta Thomas', age: 34, reason: 'Fever', current: 'Paracetamol', other: 'Azithromycin (Dr. Priya Nair)' },
+          { name: 'Suresh Babu', age: 52, reason: 'Diabetes', current: 'Metformin', other: 'Insulin (Dr. Asha Menon)' },
+        ]
+      },
+      'priya-nair': {
+        name: 'Dr. Priya Nair (Pediatrics)',
+        patients: [
+          { name: 'Aarav K.', age: 7, reason: 'Cough', current: 'Salbutamol', other: 'Montelukast (Dr. Ravi Kumar)' },
+          { name: 'Meera S.', age: 3, reason: 'Fever', current: 'Paracetamol', other: 'Ibuprofen (Dr. Ravi Kumar)' },
+        ]
+      },
+      'sanjay-patel': {
+        name: 'Dr. Sanjay Patel (Neurology)',
+        patients: [
+          { name: 'Vijay R.', age: 62, reason: 'Stroke', current: 'Clopidogrel', other: 'Aspirin (Dr. Asha Menon)' },
+          { name: 'Anita D.', age: 49, reason: 'Migraine', current: 'Sumatriptan', other: 'Propranolol (Dr. Ravi Kumar)' },
+        ]
+      },
+      'meera-joseph': {
+        name: 'Dr. Meera Joseph (Radiology)',
+        patients: [
+          { name: 'Sunil P.', age: 40, reason: 'MRI Scan', current: 'None', other: 'Painkillers (Dr. Ravi Kumar)' },
+          { name: 'Kavya N.', age: 29, reason: 'CT Scan', current: 'None', other: 'Antibiotics (Dr. Priya Nair)' },
+        ]
+      }
+    };
+    // Get doctor from query string
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    const doctorKey = getQueryParam('doctor');
+    const doctorData = doctorPatients[doctorKey] || { name: 'Unknown Doctor', patients: [] };
+    document.getElementById('doctorName').textContent = doctorData.name;
+    document.getElementById('doctorTitle').textContent = `Patients of ${doctorData.name}`;
+    const tableBody = document.getElementById('patientsTable');
+    if (doctorData.patients.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No patients found for this doctor.</td></tr>';
+    } else {
+      doctorData.patients.forEach(p => {
+        const row = `<tr>
+          <td>${p.name}</td>
+          <td>${p.age}</td>
+          <td>${p.reason}</td>
+          <td>${p.current}</td>
+          <td>${p.other}</td>
+          <td>
+            <a href="#" class="btn btn-sm" style="border:1px solid #b71c1c;color:#b71c1c;" onclick='viewPatientDetails("${p.name}",${p.age},"${p.reason}")'>View Details</a>
+          </td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+    // View Details button handler
+    function viewPatientDetails(name, age, reason) {
+      // For demo, gender is not available in the table, so default to 'Male'.
+      const params = new URLSearchParams({
+        name,
+        age,
+        gender: 'Male',
+        reason
+      });
+      window.location.href = `patient_details.html?${params.toString()}`;
+    }
+  </script>
+</body>
+</html>
+
