@@ -253,19 +253,54 @@
 </head>
 <body>
     <!-- Emergency & Ambulance Top Bar -->
-    <div style="background:#fff; border-bottom:1px solid #eee; padding:4px 0; font-size:1rem;">
-      <div class="container d-flex justify-content-end align-items-center gap-4">
-        <div class="d-flex align-items-center">
-          <span class="fw-bold text-danger"><i class="fas fa-ambulance me-1"></i>AMBULANCE:</span>
-          <span class="text-dark ms-1">+91 9833009816</span>
-          <a href="https://wa.me/919833009816" target="_blank" class="ms-2" title="WhatsApp"><i class="fab fa-whatsapp text-success"></i></a>
-        </div>
-        <div class="d-flex align-items-center">
-          <span class="fw-bold text-primary"><i class="fas fa-phone me-1"></i>EMERGENCY:</span>
-          <span class="text-dark ms-1">+91 471 294 1101</span>
-        </div>
-      </div>
-    </div>
+            <div style="background:#fff; border-bottom:1px solid #eee; padding:4px 0; font-size:1rem; overflow:hidden;">
+                <div class="emergency-marquee">
+                    <div class="d-flex justify-content-end align-items-center gap-4 flex-nowrap flex-md-nowrap">
+                        <div class="d-flex align-items-center flex-wrap flex-md-nowrap">
+                            <span class="fw-bold text-danger"><i class="fas fa-ambulance me-1"></i>AMBULANCE:</span>
+                            <a href="tel:+919833009816" class="text-dark ms-1 text-decoration-none" style="word-break:break-all;">+91 9833009816</a>
+                            <a href="https://wa.me/919833009816" target="_blank" class="ms-2" title="WhatsApp"><i class="fab fa-whatsapp text-success"></i></a>
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap flex-md-nowrap mt-1 mt-md-0">
+                            <span class="fw-bold text-primary"><i class="fas fa-phone me-1"></i>EMERGENCY:</span>
+                            <a href="tel:+914712941101" class="text-dark ms-1 text-decoration-none" style="word-break:break-all;">+91 471 294 1101</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <style>
+        .emergency-marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            animation: marquee-move-ltr 28s linear infinite;
+        }
+        @keyframes marquee-move-ltr {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @media (max-width: 575.98px) {
+            .emergency-marquee {
+                font-size: 0.95rem;
+                animation-duration: 16s;
+            }
+        }
+        </style>
+        <style>
+        /* Responsive phone number bar for all devices */
+        @media (max-width: 575.98px) {
+            .container .row.g-2 > .col-auto {
+                flex-basis: 100%;
+                justify-content: flex-start !important;
+                margin-bottom: 2px;
+            }
+            .container .row.g-2 {
+                flex-direction: column !important;
+                gap: 0.25rem !important;
+            }
+        }
+        </style>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container d-flex align-items-center justify-content-between">
@@ -281,36 +316,39 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                Menu
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="menuDropdown">
-                                <li><a class="dropdown-item" href="#about">About</a></li>
-                                <li><a class="dropdown-item" href="#departments">Department</a></li>
-                                <!-- Removed Booking and Patient Booking dropdown links -->
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Telehealth</a></li>
-                                <li><a class="dropdown-item" href="#">Teletriage</a></li>
-                                <li><a class="dropdown-item" href="#">Home care</a></li>
-                                <li><a class="dropdown-item" href="#">CSR</a></li>
-                                <li><a class="dropdown-item" href="#">Patients and Visitors</a></li>
-                                <li><a class="dropdown-item" href="#">Ethics Committee</a></li>
-                                <li><a class="dropdown-item" href="#">Academics</a></li>
-                                <li><a class="dropdown-item" href="#">Facilities</a></li>
-                                <li><a class="dropdown-item" href="#">Travel Clinic</a></li>
-                                <li><a class="dropdown-item" href="#">Insurance Providers</a></li>
-                                <li><a class="dropdown-item" href="#">Careers</a></li>
-                                <li><a class="dropdown-item" href="#">Blog</a></li>
-                                <li><a class="dropdown-item" href="#">Videos</a></li>
-                                <li><a class="dropdown-item" href="#">Bio Medical Waste Report</a></li>
-                                <!-- Removed Medical Representatives - Appointments dropdown link -->
-                            </ul>
-                        </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#about">About</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#departments">Department</a>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Menu
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="menuDropdown">
+                                                                <!-- Removed Booking and Patient Booking dropdown links -->
+                                                                <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                                                <li><a class="dropdown-item" href="#">Teletriage</a></li>
+                                                                <li><a class="dropdown-item" href="#">Home care</a></li>
+                                                                <li><a class="dropdown-item" href="#">CSR</a></li>
+                                                                <li><a class="dropdown-item" href="#">Patients and Visitors</a></li>
+                                                                <li><a class="dropdown-item" href="#">Ethics Committee</a></li>
+                                                                <li><a class="dropdown-item" href="#">Academics</a></li>
+                                                                <li><a class="dropdown-item" href="#">Facilities</a></li>
+                                                                <li><a class="dropdown-item" href="#">Travel Clinic</a></li>
+                                                                <li><a class="dropdown-item" href="#">Insurance Providers</a></li>
+                                                                <li><a class="dropdown-item" href="#">Careers</a></li>
+                                                                <li><a class="dropdown-item" href="#">Blog</a></li>
+                                                                <li><a class="dropdown-item" href="#">Videos</a></li>
+                                                                <li><a class="dropdown-item" href="#">Bio Medical Waste Report</a></li>
+                                                                <!-- Removed Medical Representatives - Appointments dropdown link -->
+                                                        </ul>
+                                                </li>
                     </ul>
                 </div>
             </div>
-            <button class="btn btn-outline-primary login-btn ms-3" id="homepageLoginBtn">Login</button>
+            <button class="btn btn-danger login-btn ms-3" id="homepageLoginBtn">Login</button>
         </div>
     </nav>
 
@@ -631,22 +669,27 @@ if (scrollUpBtn) {
             <h5 class="modal-title" id="loginModalLabel">Login</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter your username">
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password">
-              </div>
-              <div class="mb-3 text-end">
-                <a href="#" class="link-primary" style="font-size:0.95rem;">Forgot Password?</a>
-              </div>
-              <button type="submit" class="btn" style="background:#b71c1c;color:#fff;width:100%;">Login</button>
-            </form>
-          </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info p-2 mb-3" style="font-size:0.98rem;">
+                            <strong>Sample Credentials:</strong><br>
+                            Username: <span class="fw-bold">doctor</span><br>
+                            Password: <span class="fw-bold">doc123</span>
+                        </div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                            </div>
+                            <div class="mb-3 text-end">
+                                <a href="#" class="link-primary" style="font-size:0.95rem;">Forgot Password?</a>
+                            </div>
+                              <button type="submit" class="btn btn-danger w-100">Login</button>
+                        </form>
+                    </div>
         </div>
       </div>
     </div>

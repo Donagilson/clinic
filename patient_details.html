@@ -10,8 +10,22 @@
     .card + .card { margin-top: 1.5rem; }
     .pdf-link { text-decoration: none; }
     body {
-      background: url('') no-repeat center center fixed;
+      background: #f8f9fa url('medical-background-with-red-heart-pulse_476363-2014.avif') no-repeat center center fixed;
       background-size: cover;
+      position: relative;
+    }
+    /* Overlay for readability */
+    body:before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.85);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .container, .dashboard-header, .row, .card, .modal-content, .table, .table-responsive {
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
